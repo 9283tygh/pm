@@ -1,0 +1,88 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Postman Chaining Demo",
+		"_postman_id": "144bad3d-8b9e-9c95-fc60-a882dadfa179",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost/dummyapi/register",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "abc",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "blah",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Status Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches string\"] = responseBody.has(\"abcdefg\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost/dummyapi/status",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "status",
+							"value": "Something",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
